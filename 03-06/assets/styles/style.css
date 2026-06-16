@@ -1,0 +1,119 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+}
+
+main {
+    display: flex;
+    width: 95vw;
+    height: 95vh;
+    background-image: url(../images/fundo.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    image-rendering: pixelated;
+    position: relative;
+}
+
+.enemy-health, .player-health {
+    display: flex;
+    width: 45vw;
+    height: 25vh;
+    display: flex;
+    position: absolute;
+    background-size: cover;
+    background-repeat:no-repeat;
+    background-position:center;
+    align-items:center;
+    justify-content:center;
+    
+}
+.enemy-health{
+    background-image: url(../images/enemy-hp.png);
+    position: relative;
+    margin-left: 30px;
+}
+.player-health{
+    right: 30px;
+    bottom: 240px;
+    background-image:url(../images/player-hp.png);
+    height: 30vh;
+    z-index:2;
+}
+.escolher{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background-color: rgb(44, 44, 44);
+    width: 48vw;
+    height: 230px; 
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    image-rendering: pixelated;
+    z-index: 2;
+}
+.mensagem{
+    width: 95%;
+    height: 90%;
+    background-color: white;
+    image-rendering: pixelated;
+    align-items:center;
+    justify-content:center;
+    text-align: center;
+    display:flex;
+}
+
+.menu-player{
+    min-width: 45vw;
+    display:flex;
+    min-height: 250px;
+    position: absolute;
+    bottom: 0;
+    right: 30px;
+    background-image: url(../images/menu-player.png);
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    align-items:center;
+    justify-content:center;
+    
+
+}
+#pokemonTime{
+ display:flex;
+ position:absolute;
+ background-color: pink;
+ width: 23vw;
+ height: 23vw;
+ bottom: 70px;
+ left: 5vw;
+ z-index: 1;
+ align-items:center;
+ justify-content:center;
+ display:flex;
+
+}
+#pokemonInimigo{
+    display:flex;
+    position: absolute;
+    background-color: red;
+    width: 20vw;
+    height: 20vw;
+    top: 70px;
+    right: 12vw;
+    z-index: 1;
+    align-items:center;
+    justify-content:center;
+    display:flex;
+
+}
