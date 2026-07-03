@@ -20,3 +20,5 @@ routes.get('/users/:id', userController.getById.bind(userController))
 // Chamamos o middlewares validateUser aqui
 // ele roda antes de criarmos o usuário: se os dados estiverem inválidos ou faltando, a requisição já é interrompida aqui, sem nem chegar ao Controller, e vai embora para casa mais cedo.
 routes.post('/users', validadeUser, userController.create.bind(userController))
+routes.put('/users/:id', userController.update.bind(userController))
+routes.delete('/users/:id', userController.delete.bind(userController))

@@ -1,5 +1,5 @@
 import { UserRepository } from "../repositories/UserRepository"
- import bcrypc from 'bcrypt'
+ import bcrypt from 'bcrypt'
 import { omitPassword } from "../utils/omitPassword"
 
 // A camada Service é responsável por chamar os métodos do Repository e cuidar das validações das nossas regras de negócio
@@ -33,7 +33,7 @@ export const UserService ={
    
     async create(data: {name:string, email:string, password:string}){
         // Este método gera uma senha criptografada
-        const hashedPassword = await bcrypc.hash(data.password, 10);
+        const hashedPassword = await bcrypt.hash(data.password, 10);
 
         // Isso gera um objeto que é mais ou menos assim:
         /**
@@ -51,6 +51,38 @@ export const UserService ={
             password: hashedPassword
         })
 return omitPassword(user)
+    },
+
+    async update(id:number, data: { name?: string, email?: string, password?: string}){
+        // encontra o usuário pelo id
+const user = await UserRepository.findById(id)
+
+     if(!user){
+    throw new NotFoundError("Usuário não encontrado!!!!!")
+     }
+      // Só vamos alterar/atualizar os campos que vieram
+      // Assim, podemos atualizar só o nome, ou só o email, ou só o nome e senha, etc
+
+      if(data.name) user.name = data.name
+      if(data.email) user.email = data.email
+      
+      // Se vier uma senha nova, a gente criptografa ela de novo
+      // Se não veio, mantemos a antiga, sem alteração
+      if(data.password) user.password = await bcrypt.hash(data.password, 10)
+
+        // Depois de tudo isso acima, chamamos o método create do repository (ele salva no banco)
+        const updateUser = await UserRepository.create(user)
+
+        // Retorna o usuário sem a senha (por causa do omitPassword) para que não mostre a senha na resposta do servidor
+        return omitPassword(updateUser)
+
+    },
+    async delete(id:number){
+           const user = await UserRepository.delete(id)
+         if(user.affected === 0){
+            throw new NotFoundError("Erro ao encontrar usuário / Usuário não existe")
+        }
+       
     }
 
 }
