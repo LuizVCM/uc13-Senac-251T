@@ -23,3 +23,26 @@ AppDataSource.initialize().then(() => {
         console.log("servidor backend no ar!!!!!!!   Porta: "+ PORT)
     })
 }).catch((error) => console.log("Erro ao conectar com o banco: "+error));
+
+/**
+  Criar um novo projeto
+  Instaklar as depoendências
+  Configurar tsconfig, etc
+
+  Criar as entidades User e Task
+
+  User deve ter:
+  - id
+  - name
+  - email
+  - password
+
+  Task deve ter:
+  - id
+  - title
+  - description
+
+  Faça as relações
+  O objetivo é criar o backend de um gerenciamento de tarefas, onde um usuário pode criar várias tarefas
+  
+ */
