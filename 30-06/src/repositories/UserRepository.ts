@@ -9,7 +9,7 @@ export const UserRepository = {
     // Aqui vamos criar os métodos que fazem o CRUD de usuários
 
     // Busca todos os usuários 
-    async fidnAll(){
+    async findAll(){
     // O método find() vem do TypeORM. Ele procura algo em uma tabela
     // ele aceita como parâmetro um objeto com opções para esta busca
     // nesse nosso caso, estamos buscando também os posts relacionados com este usuário, ou seja, quando buscarmos os usuários, o que inclui o 'Joãozinho', o swervid9or também vai retornar no JSON todos os posts dele, incluindo a vez em que ele xingou sua tia

@@ -19,7 +19,7 @@ export class User{
     @Column({length:150, nullable:false, unique:true})
     email:string;
 
-    @Column({select: false, nullable:false})
+    @Column({select: false, nullable:false, length: 255})
     password:string;
 
     // @OneToMany indica que um User pode ter vários Post
@@ -28,7 +28,7 @@ export class User{
     // post => post.user -> indica qual a propriedade na classe Post que referencia o User
     // Com tudo isso definido, o TypeORM consegue criart automaticamente as ligações entre as tabelas e as chaves estrangeiras.
     // Temos que fazer sem,pre para todos ops envolvidos, neste caso, tanto para User quanto para Post
-    @OneToMany(() => Post, post => post.user)
+    @OneToMany(() => Post, posts => posts.user)
     posts:Post[] 
 }
 
