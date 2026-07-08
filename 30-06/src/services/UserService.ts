@@ -35,6 +35,7 @@ export const UserService = {
         if(!user){
             throw new NotFoundError("Usuário não encontrado")
         }
+        const validPassword = await bcrypt.compare(data.password, (user as any).password)
 
     },
 
