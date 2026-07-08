@@ -18,6 +18,11 @@ export const UserRepository = {
     async findById(id:number){
         return repo.findOne({where: {id}, relations: ['posts']})
     },
+    // método para encontrar um jaguara por email
+    // vai ser utilizado no login
+    async findByEmail(email:string){
+        return repo.findOne({where: {email}})
+    },
 
     async create(data:{name:string, email:string, password:string}){
         // Cria o usuário

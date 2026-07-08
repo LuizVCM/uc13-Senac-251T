@@ -8,6 +8,7 @@ import { omitPassword } from "../utils/omitPassword"
 // Isso é para permitir que, mais tarde, o Controller identifique o tipo de erro de uma forma mais clara
 
 export class NotFoundError extends Error { }
+export class Unauthorized extends Error{} // erro lançao quando alguém não está autorizado a acessar tal rota 
 
 export const UserService = {
 
@@ -27,6 +28,13 @@ export const UserService = {
 
             // Se encontrou, não cai no "if" ali em cima, então podemos usar o return e retorna o user 
         } return user;
+
+    },
+    async login(data: {email:string, password:string}){
+        const user = UserRepository.findByEmail(data.email)
+        if(!user){
+            throw new NotFoundError("Usuário não encontrado")
+        }
 
     },
 
