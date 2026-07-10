@@ -184,7 +184,7 @@ import { UserService } from '.../services/UserService.ts'
        5.2 - O método de login: 
 ```ts
    export class AuthController {
-        async login (reQ: Request, res: Response, next: NextFunction){
+        async login (req: Request, res: Response, next: NextFunction){
             try{
              // precisamos extrair o email e a senha pelo corpo da requisição:
              const {email, password} = req.body // lembre-se: sempre na ordem, e com o mesmo nome

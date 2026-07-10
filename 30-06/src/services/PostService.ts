@@ -16,6 +16,10 @@ export const PostService = {
         return post;
     },
 
+    async listMyPosts(userId:number){
+        return PostRepository.findByUserId(userId)
+    }
+
     async create(data: { title: string, userId: number }) {
         // Cada post pertemce a um usuário
         // Log, para criarmos um post, precisamos ENCONTRAR esse usuário

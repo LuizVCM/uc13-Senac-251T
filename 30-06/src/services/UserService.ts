@@ -1,6 +1,8 @@
 import { UserRepository } from "../repositories/UserRepository"
 import bcrypt from 'bcrypt'
 import { omitPassword } from "../utils/omitPassword"
+import { User } from "../models/User"
+import { generateToken } from "../utils/jwt"
 
 // A camada Service é responsável por chamar os métodos do Repository e cuidar das validações das nossas regras de negócio
 
@@ -31,12 +33,20 @@ export const UserService = {
 
     },
     async login(data: {email:string, password:string}){
-        const user = UserRepository.findByEmail(data.email)
-        if(!user){
-            throw new NotFoundError("Usuário não encontrado")
-        }
-        const validPassword = await bcrypt.compare(data.password, (user as any).password)
+        const user = await UserRepository.findByEmail(data.email)
+        const isValid = await bcrypt.compare(data.password, user!.password)
 
+        if(!user || !isValid){
+            throw new NotFoundError("informações incorretas")
+        }
+
+        const token = generateToken({id: user.id, email: user.email})
+        console.log(token)
+
+        return {
+            user: omitPassword(user),
+            token
+        }
     },
 
 
