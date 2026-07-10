@@ -15,6 +15,6 @@ export const routes = Router() // cria o objeto das rotas do express (necessári
 
 routes.use("/users", userRoutes)
 // posts
-routes.use("posts", postsRoutes)
+routes.use("/posts", postsRoutes)
 
 routes.use("/auth", authRoutes) // http://localhost:3000/auth/login

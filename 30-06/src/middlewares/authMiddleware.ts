@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { verify } from "node:crypto";
+
 import { verifyToken } from "../utils/jwt";
 
 export function authMiddleware(req: Request, res: Response, next: NextFunction){
@@ -37,7 +37,7 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction){
     // se não for, retorna null
     const decoded = verifyToken(token)
 
-    if(decoded){
+    if(!decoded){
         return res.status(401).json({
             message: "Token inválido ou expirado."
         })

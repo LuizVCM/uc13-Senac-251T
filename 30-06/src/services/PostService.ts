@@ -8,7 +8,7 @@ export const PostService = {
     },
 
     async getById(id: number) {
-        const post = await PostRepository.findById(id) 
+        const post = await PostRepository.findById(id)
 
         if (!post) {
             throw new NotFoundError("Post não encontrado!!")
@@ -16,39 +16,39 @@ export const PostService = {
         return post;
     },
 
-    async listMyPosts(userId:number){
+    async listMyPosts(userId: number) {
         return PostRepository.findByUserId(userId)
-    }
+    },
 
     async create(data: { title: string, userId: number }) {
         // Cada post pertemce a um usuário
         // Log, para criarmos um post, precisamos ENCONTRAR esse usuário
-        if(!data.title){
+        if (!data.title) {
             throw new Error("Título é obrigatório");
         }
-        if(!data.userId){
+        if (!data.userId) {
             throw new Error("Usuário é obrigatório!");
         }
-       const user = await UserRepository.findById(data.userId);
-       if(!user){
-        throw new NotFoundError("Usuário não encontrado!")
-       }
-       return PostRepository.create({
-        title: data.title,
-        user
-       });
-       
+        const user = await UserRepository.findById(data.userId);
+        if (!user) {
+            throw new NotFoundError("Usuário não encontrado!")
+        }
+        return PostRepository.create({
+            title: data.title,
+            user
+        });
+
     },
 
-    async update(id: number, data: { title?: string}) {
+    async update(id: number, data: { title?: string }) {
         const posts = await PostRepository.findById(id)
 
         if (!posts) {
             throw new NotFoundError("Não foi encontrado nenhum post!")
         }
-        
+
         if (data.title) posts.title = data.title;
-        
+
         const postUpdate = await PostRepository.create(posts)
         return postUpdate
     },
