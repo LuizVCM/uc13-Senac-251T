@@ -25,13 +25,13 @@ export class PostController {
         try{
             // Pega as infos do usuário que está logado, através da Request, que recebeu estas infos pelo token
            const loggedUser = (req as any).user
-
+            console.log(loggedUser)
            // Agora sim podemos listar os posts de um usuário logado
-           const myPosts =  PostService.listMyPosts(loggedUser.id)
+           const myPosts = await PostService.listMyPosts(loggedUser.id)
           
-           return res.status(200).json({
+           return res.status(200).json(
             myPosts
-           })
+           )
 
         }catch(error){
       next(error)
@@ -39,11 +39,9 @@ export class PostController {
     }
     async create(req: Request, res: Response, next: NextFunction) {
         try {
-            const { title, userId } = req.body
-            const posts = PostService.create({
-                title,
-                userId
-            })
+            const { title} = req.body
+            const loggedUser = (req as any).user;
+            const posts = await PostService.create({title}, loggedUser.id)
 
             return res.status(201).json(posts)
         } catch (error) {
@@ -54,7 +52,9 @@ export class PostController {
         try {
             const id = Number(req.params.id)
             const { title } = req.body
-            const posts = await PostService.update(id, {title})
+            const loggedUser = (req as any).user;
+
+            const posts = await PostService.update(id, {title}, loggedUser.id) // {id: 1, email: "isdjsijdi"}
             return res.json(posts)
         } catch (error) {
             next(error)

@@ -37,6 +37,8 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction){
     // se não for, retorna null
     const decoded = verifyToken(token)
 
+    console.log("decoded:", decoded);
+    
     if(!decoded){
         return res.status(401).json({
             message: "Token inválido ou expirado."
